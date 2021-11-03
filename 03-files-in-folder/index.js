@@ -21,4 +21,3 @@ fs.readdir(`${way}`, (err, data) => {
     })
   })
 })
-

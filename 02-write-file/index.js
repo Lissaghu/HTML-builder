@@ -28,7 +28,3 @@ interface.on('SIGINT', () => {
   console.log('Пока! Ты меня не любишь!')
   interface.close()
 })
-
-
-
-
