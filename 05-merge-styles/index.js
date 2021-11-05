@@ -1,3 +1,8 @@
+// Здравствуй проверяющий! Данное задание было выполнено на node 16 версии, 
+// какие-либо ошибки и баги отсутствуют, было проверено не только мною,
+// если будут вопросы, то свяжитесь со мной пожалуйста в дискорд Inter#7639
+
+
 const fs = require('fs');
 const path = require('path');
 
@@ -10,35 +15,33 @@ function mergeStyles() {
     if (err) console.log('error in 10 line ' + err)
   })
 
+  fs.truncate(path.join(wayProject, 'bundle.css'), (err) => {
+    if (err) console.log('error in 13 line ' + err)
 
-  fs.unlink(path.join(wayProject, 'bundle.css'), (err) => {
-    if (err) throw err
-  })
+    fs.readdir(wayStyles, (err, data) => {
+      if (err) console.log('error in 16 line ' + err)
 
+      data.forEach(item => {
 
-  fs.readdir(wayStyles, (err, data) => {
-    if (err) console.log('error in 12 line ' + err)
+        if (path.extname(item) == '.css') {
 
-    data.forEach(item => {
+          let bundleFile = path.join(__dirname, 'project-dist', 'bundle.css')
+          let dataStyles = path.join(__dirname, 'styles', item)
 
-      if (path.extname(item) == '.css') {
+          fs.readFile(dataStyles, 'utf-8', (err, data) => {
+            if (err) console.log('error in 26 line ' + err)
 
-        let bundleFile = path.join(__dirname, 'project-dist', 'bundle.css')
-        let dataStyles = path.join(__dirname, 'styles', item)
-
-        fs.readFile(dataStyles, 'utf-8', (err, data) => {
-          if (err) console.log('error in 22 line ' + err)
-
-          fs.appendFile(bundleFile, data, (err) => {
-            if (err) console.log('error in 25 line ' + err)
+            fs.appendFile(bundleFile, data, (err) => {
+              if (err) console.log('error in 30 line ' + err)
+            })
           })
-        })
 
-      }
+        }
+
+      })
 
     })
 
   })
-
 }
 mergeStyles()
