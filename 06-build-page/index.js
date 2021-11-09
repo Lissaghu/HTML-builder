@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const fsPromises = require('fs/promises');
 
 // original path------------
 let wayAssets = path.join(__dirname, 'assets')
@@ -56,7 +57,11 @@ function copyStyles() {
 }
 copyStyles()
 
-function readDir(from, to) {
+async function readDir(from, to) {
+  await fsPromises.rm(to, {
+    recursive: true,
+    force: true,
+  });
 
   fs.mkdir(to, { recursive: true }, (err) => {
     if (err) console.log('error in 57 line ' + err)
